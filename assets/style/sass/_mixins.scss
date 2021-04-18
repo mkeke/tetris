@@ -1,0 +1,166 @@
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace 
+        + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+/*
+    set svg as background image
+
+    usage
+        $svg-body: (
+            '<g stroke="none" fill="#ff0000">'
+            '<circle cx="50" cy="50" r="25" />'
+            '</g>'
+        );
+        @include svg($svg-body, 0, 0, 100, 100);
+
+    requires function str-replace
+*/
+@mixin svg($body, $vbx1, $vby1, $vbx2, $vby2, $size: 'contain', $position: 'left top', $repeat: 'no-repeat') {
+
+    $mimetype: "data:image/svg+xml;utf8,";
+    $open: "<svg viewBox='#{$vbx1} #{$vby1} #{$vbx2} #{$vby2}' xmlns='http://www.w3.org/2000/svg'>";
+    $close: "</svg>";
+
+    $svg: $mimetype + $open;
+    @each $p in $body {
+        $svg: $svg + str-replace($p, '#', '%23');
+    }
+    $svg: $svg + $close;
+
+    background-image: url($svg);
+    background-repeat: #{$repeat};
+    background-size: #{$size};
+    background-position: #{$position};
+}
+
+/*
+    construct piece primitives of a specified type (1-7)
+    set as background image
+*/
+@mixin piece-svg($type) {
+    $bg: "#000000";
+    $fg: "#ffffff";
+    $shine: "#ffffff50";
+    $col1: "#e1bc60";
+    $col2: "#cc6d63";
+    $col3: "#b82635";
+    $col4: "#70e2c7";
+    $col5: "#c84bd3";
+    $col6: "#d17f53";
+    $col7: "#8bd07d";
+
+    @if $type == '1' {
+        $svg_arr: (
+            '<rect stroke="none" fill="#{$bg}" x="0" y="0" width="8" height="8"/>'
+            '<rect stroke="none" fill="#{$col1}" x="1" y="1" width="6" height="6"/>'
+            '<rect stroke="none" fill="#{$bg}" x="2" y="2" width="4" height="4"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="4" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="2" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="1" height="2"/>'
+        );
+        @include svg($svg_arr, 0, 0, 8, 8);
+    } @else if $type == '2' {
+        $svg_arr: (
+            '<rect stroke="none" fill="#{$bg}" x="0" y="0" width="8" height="8"/>'
+            '<rect stroke="none" fill="#{$col2}" x="1" y="1" width="6" height="6"/>'
+            '<rect stroke="none" fill="#{$bg}" x="4" y="2" width="1" height="1"/>'
+            '<rect stroke="none" fill="#{$bg}" x="2" y="4" width="1" height="1"/>'
+            '<rect stroke="none" fill="#{$bg}" x="5" y="5" width="1" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="4" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="2" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="1" height="2"/>'
+        );
+        @include svg($svg_arr, 0, 0, 8, 8);
+    } @else if $type == '3' {
+        $svg_arr: (
+            '<rect stroke="none" fill="#{$bg}" x="0" y="0" width="8" height="8"/>'
+            '<rect stroke="none" fill="#{$col3}" x="1" y="1" width="6" height="6"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="4" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="2" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="1" height="2"/>'
+        );
+        @include svg($svg_arr, 0, 0, 8, 8);
+    } @else if $type == '4' {
+        $svg_arr: (
+            '<rect stroke="none" fill="#{$bg}" x="0" y="0" width="8" height="8"/>'
+            '<rect stroke="none" fill="#{$col4}" x="1" y="1" width="6" height="6"/>'
+            '<rect stroke="none" fill="#{$bg}" x="2" y="2" width="4" height="4"/>'
+            '<rect stroke="none" fill="#{$fg}" x="3" y="3" width="2" height="2"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="4" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="2" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="1" height="2"/>'
+        );
+        @include svg($svg_arr, 0, 0, 8, 8);
+    } @else if $type == '5' {
+        $svg_arr: (
+            '<rect stroke="none" fill="#{$bg}" x="0" y="0" width="8" height="8"/>'
+            '<rect stroke="none" fill="#{$col5}" x="1" y="1" width="6" height="6"/>'
+            '<rect stroke="none" fill="#{$bg}" x="2" y="2" width="4" height="4"/>'
+            '<rect stroke="none" fill="#{$fg}" x="3" y="3" width="2" height="2"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="4" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="2" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="1" height="2"/>'
+        );
+        @include svg($svg_arr, 0, 0, 8, 8);
+    } @else if $type == '6' {
+        $svg_arr: (
+            '<rect stroke="none" fill="#{$bg}" x="0" y="0" width="8" height="8"/>'
+            '<rect stroke="none" fill="#{$col6}" x="1" y="1" width="6" height="6"/>'
+            '<rect stroke="none" fill="#{$bg}" x="3" y="3" width="2" height="2"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="4" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="2" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="1" height="2"/>'
+        );
+        @include svg($svg_arr, 0, 0, 8, 8);
+    } @else if $type == '7' {
+        $svg_arr: (
+            '<rect stroke="none" fill="#{$bg}" x="0" y="0" width="8" height="8"/>'
+            '<rect stroke="none" fill="#{$col7}" x="1" y="1" width="6" height="6"/>'
+            '<rect stroke="none" fill="#{$bg}" x="2" y="2" width="4" height="4"/>'
+            '<rect stroke="none" fill="#{$fg}" x="2" y="2" width="3" height="3"/>'
+            '<rect stroke="none" fill="#{$col7}" x="3" y="3" width="2" height="2"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="4" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="2" height="1"/>'
+            '<rect stroke="none" fill="#{$shine}" x="1" y="1" width="1" height="2"/>'
+        );
+        @include svg($svg_arr, 0, 0, 8, 8);
+    }
+}
+
+/*
+    calculate background position percentage
+    based on pixel/viewbox offset and character width in charset/spritemap
+    the elements of the charset/spritemap is stacked horizontally
+    elements can have variable width
+    some space between elements is advised, to avoid bleeding
+
+    params:
+       offset: actual pixel/viewbox offset in spritemap/charset
+       charWidth: actual pixel/viewbox width of the charater/sprite
+
+    helper vars:
+       refWidth: the actual width of the spritemap
+       defaultWidth: the default html element width (in %, px, em or whatever)
+*/
+@mixin setCharPos($offset, $charWidth:25) {
+    $refWidth: 1350; // pixel or viewBox width of reference image
+    $defaultWidth: 6.5%; // default width of html element
+
+    $stepWidth: $refWidth / $charWidth;
+    $stepPercentage: 100 / ($stepWidth - 1);
+    $squarePos: $offset / $charWidth;
+    $offsetPercentage: $stepPercentage * $squarePos * 1%;
+
+    background-position: left #{$offsetPercentage} top;
+    @if $charWidth != 25 {
+        // calculate new width
+        width: #{$defaultWidth * $charWidth / 25};
+    }
+}

@@ -1,0 +1,666 @@
+.fullscreen {
+    // position must be fixed to avoid
+    // pull-down pull-up scrolling on iPad
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ratio {
+    overflow: hidden;
+    position: absolute;
+    box-sizing: border-box;
+
+    // width and height is maintained by javascript
+    // left and top is maintained by javascript
+    // to ensure integer size on tiles
+    // and whole integer positions
+
+}
+
+section {
+    position: absolute;
+    background-color: black;
+
+}
+
+section.next {
+    // width and height is maintained by javascript
+    // left and top is maintained by javascript
+    // to ensure integer size on tiles
+    // and whole integer positions
+    top: 0;
+    background-color: #00000066;
+
+    // next piece properly centered in container
+    .tile {
+        position: absolute;
+        left: 0;
+        top: 0;
+        .p1 { transform: translate(400%, 50%); }
+        .p2 { transform: translate(400%,100%); }
+        .p3 { transform: translate(450%, 50%); }
+        .p4 { transform: translate(450%, 50%); }
+        .p5 { transform: translate(450%, 50%); }
+        .p6 { transform: translate(450%, 50%); }
+        .p7 { transform: translate(450%, 50%); }
+
+    }
+}
+section.board {
+    // width and height is maintained by javascript
+    // left and top is maintained by javascript
+    // to ensure integer size on tiles
+    // and whole integer positions
+}
+section.stats {
+    // width and height is maintained by javascript
+    // left and top is maintained by javascript
+    // to ensure integer size on tiles
+    // and whole integer positions
+    background-color: #00000066;
+}
+section.control {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+.tile {
+    box-sizing: border-box;
+    // width and height is maintained by javascript
+}
+
+// board's ul is positioned from bottom, to ease
+// the falling of pieces
+.board .lines {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    // lines are stacked on top of each other
+    li {
+        display: block;
+        width: 100%;
+        height: auto;
+
+        // tiles are side by side
+        div {
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
+}
+
+// dark grid on board
+.board {
+    $svgData: (
+        '<g stroke="none" fill="#222222">'
+        '<rect width="8" height="8" x="0" y="0" />'
+        '<rect width="8" height="8" x="8" y="8" />'
+        '</g>'
+    );
+    @include svg($svgData, 0, 0, 16, 16, "20% auto", "left top", "repeat");
+}
+
+
+.current {
+    position: absolute;
+}
+.current div,
+.next .tile div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    // piece primitive positions relative to piece origo
+    &.x-3 { left: -300%; }
+    &.x-2 { left: -200%; }
+    &.x-1 { left: -100%; }
+    &.x0  { left:    0%; }
+    &.x1  { left:  100%; }
+    &.x2  { left:  200%; }
+    &.x3  { left:  300%; }
+    &.y-3 { top:  -300%; }
+    &.y-2 { top:  -200%; }
+    &.y-1 { top:  -100%; }
+    &.y0  { top:     0%; }
+    &.y1  { top:   100%; }
+    &.y2  { top:   200%; }
+    &.y3  { top:   300%; }
+}
+
+// piece primitive looks
+// NOTICE! the .p<int> classes are reserved for piece primitives
+.p1 { @include piece-svg("1"); }
+.p2 { @include piece-svg("2"); }
+.p3 { @include piece-svg("3"); }
+.p4 { @include piece-svg("4"); }
+.p5 { @include piece-svg("5"); }
+.p6 { @include piece-svg("6"); }
+.p7 { @include piece-svg("7"); }
+
+// animated SVG background on outer container
+.fullscreen {
+    $dur: 4s;
+    $filla: '#007700';
+    $fillb: '#005500';
+    $animSpecs: 'attributeType="XML" repeatCount="indefinite"';
+    $svgData: (
+        '<rect fill="#{$filla}" stroke="none" x="0" y="0" width="20" height="20" />'
+        '<g fill="#{$fillb}" stroke="none">'
+        '<rect width="10" height="10" x="0" y="0">'
+        '<animate attributeName="x" #{$animSpecs} from="0" to="-10" begin="0s" dur="#{$dur}" />'
+        '<animate attributeName="y" #{$animSpecs} from="0" to="-10" begin="0s" dur="#{$dur}" />'
+        '</rect>'
+        '<rect width="10" height="10" x="20" y="0">'
+        '<animate attributeName="x" #{$animSpecs} from="20" to="10" begin="0s" dur="#{$dur}" />'
+        '<animate attributeName="y" #{$animSpecs} from="0" to="-10" begin="0s" dur="#{$dur}" />'
+        '</rect>'
+        '<rect width="10" height="10" x="10" y="10">'
+        '<animate attributeName="x" #{$animSpecs} from="10" to="0" begin="0s" dur="#{$dur}" />'
+        '<animate attributeName="y" #{$animSpecs} from="10" to="0" begin="0s" dur="#{$dur}" />'
+        '</rect>'
+        '<rect width="10" height="10" x="0" y="20">'
+        '<animate attributeName="x" #{$animSpecs} from="0" to="-10" begin="0s" dur="#{$dur}" />'
+        '<animate attributeName="y" #{$animSpecs} from="20" to="10" begin="0s" dur="#{$dur}" />'
+        '</rect>'
+        '<rect width="10" height="10" x="20" y="20">'
+        '<animate attributeName="x" #{$animSpecs} from="20" to="10" begin="0s" dur="#{$dur}" />'
+        '<animate attributeName="y" #{$animSpecs} from="20" to="10" begin="0s" dur="#{$dur}" />'
+        '</rect>'
+        '</g>'
+    );
+    @include svg($svgData, 0, 0, 20, 20, "40px auto", "left top", "repeat");
+}
+
+// clear lines transitions
+.lines li {
+    position: relative;
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        opacity: 0;
+    }
+
+    &.flashup {
+        &:after {
+            opacity: 1;
+            transition: opacity .3s linear;
+        }
+    }
+    &.flashdown {
+        div {
+            background-image: none;
+        }
+        &:after {
+            opacity: 0;
+            transition: opacity .2s linear;
+        }
+    }
+    &.collapse {
+        // height is set in the runtime css section
+        // needs to be overridden with !important
+        height: 0px !important;
+        transition: height .2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    }
+}
+
+// QUAD! + little earthquakes
+.ratio {
+    &.quad {
+        transform: translate3d(0,0,0);
+        animation: quad 1.5s linear forwards;
+    }
+    &.triquake {
+        transform: translate3d(0,0,0);
+        animation: triquake .5s linear forwards;
+    }
+    &.diquake {
+        transform: translate3d(0,0,0);
+        animation: diquake .5s linear forwards;
+    }
+}
+@keyframes quad {
+    from, to { transform: translate3d(0,0%,0); }
+    4% { transform: translate3d(0,10%,0); }
+    12% { transform: translate3d(0,-9%,0); }
+    20% { transform: translate3d(0,8%,0); }
+    28% { transform: translate3d(0,-7%,0); }
+    36% { transform: translate3d(0,6%,0); }
+    44% { transform: translate3d(0,-5%,0); }
+    52% { transform: translate3d(0,4%,0); }
+    60% { transform: translate3d(0,-3%,0); }
+    68% { transform: translate3d(0,2%,0); }
+    76% { transform: translate3d(0,-1%,0); }
+    84% { transform: translate3d(0,0.5%,0); }
+    92% { transform: translate3d(0,-0.25%,0); }
+}
+@keyframes triquake {
+    from, to { transform: translate3d(0,0%,0); }
+    10% { transform: translate3d(0,2.5%,0); }
+    30% { transform: translate3d(0,-2%,0); }
+    50% { transform: translate3d(0,1.5%,0); }
+    70% { transform: translate3d(0,-1%,0); }
+    90% { transform: translate3d(0,0.5%,0); }
+}
+@keyframes diquake {
+    from, to { transform: translate3d(0,0%,0); }
+    10% { transform: translate3d(0,1.25%,0); }
+    30% { transform: translate3d(0,-1%,0); }
+    50% { transform: translate3d(0,0.75%,0); }
+    70% { transform: translate3d(0,-.5%,0); }
+    90% { transform: translate3d(0,0.25%,0); }
+}
+
+// numbers and labels for lines, score, level
+.stats div {
+    position: absolute;
+    height: 40%;
+    width: 98%;
+    left: 1%;
+    top: 5%;
+
+    // nums and labels on the same line
+    white-space: nowrap;
+
+    &.lines {
+        text-align: left;
+        b {
+            // "LINES"
+            $svg: (
+                '<g fill="white" stroke="#ffffff80" stroke-width="1">'
+                '<path d="M1,1h5v19h12v-2h5v5h-22z"/>'
+                '<path d="M26,1h5v22h-5z"/>'
+                '<path d="M34,1h5 v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h2v-11h5v22h-5v-4 h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v14h-5z"/>'
+                '<path d="M59,1h22v3h-17v5h11v3h-11v8h17v3h-22z" />'
+                '<path d="M105,1v1h1v3h-5v-1h-11v1h-1v3h1v1h12v1h2v1h1v2h1v6h-1v2h-1v1h-2v1h-17v-1h-1v-3h5v1h11v-1h1v-6h-1v-1h-12v-1h-2v-1h-1v-2h-1v-3h1v-2h1v-1h2v-1h17v1z" />'
+                '</g>'
+            );
+            @include svg($svg, 0, 0, 108, 25);
+            background-position: left bottom;
+            background-size: auto 35%;
+        }
+    }
+    &.score {
+        text-align: center;
+    }
+    &.level {
+        text-align: right;
+        b {
+            // "LEVEL"
+            $svg: (
+                '<g fill="white" stroke="#ffffff80" stroke-width="1">'
+                '<path d="M1,1h5v19h12v-2h5v5h-22z"/>'
+                '<path d="M26,1h22v3h-17v5h11v3h-11v8h17v3h-22z" />'
+                '<path d="M51,1h5v2h1v3h1v3h1v2h1v3h1v2h2v-2h1v-3h1v-2h1v-3h1v-3h1v-2h5v1h-1v2h-1v3h-1v2h-1v3h-1v2h-1v2h-1v3h-1v2h-1v2h-4v-2h-1v-2h-1v-3h-1v-2h-1v-3h-1v-2h-1v-2h-1v-3h-1v-2h-1z" />'
+                '<path d="M76,1h22v3h-17v5h11v3h-11v8h17v3h-22z" />'
+                '<path d="M101,1h5v19h12v-2h5v5h-22z"/>'
+                '</g>'
+            );
+            @include svg($svg, 0, 0, 125, 25);
+            background-position: right bottom;
+            background-size: auto 35%;
+        }
+    }
+
+    p {
+        display: inline-block;
+        vertical-align: top;
+        width: auto;
+        height: 100%;
+
+        span {
+            // numbers
+            display: inline-block;
+            vertical-align: top;
+            height: 100%;
+            // width is set runtime
+        }
+    }
+
+    b {
+        // labels
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 1%;
+
+        height: 100%;
+        // width is set runtime
+        text-transform: uppercase;
+    }
+
+    span {
+
+        /*
+            SVG numbers, casio style
+            vars for each line:
+
+                ---l1---
+               |        |
+               l2      l3
+               |        |
+                ---l4---
+               |        |
+               l5      l6
+               |        |
+                ---l7---
+
+            active lines are white
+            inactive lines are semitransparent black
+        */
+
+        $gw: '<g fill="white">';
+        $gb: '<g fill="#00000070">';
+        $g: '</g>';
+        $l1: '<path d="M 55,35 l 20,-20, h 110 l 20,20 l -20,20 h -110 Z" />';
+        $l2: '<path d="M 45,45 l 30,30 v 90 l -30,30 l -30,-30 v -90 Z" />';
+        $l3: '<path d="M 215,45 l 30,30 v 90 l -30,30 l -30,-30 v -90 Z" />';
+        $l4: '<path d="M 55,205 l 20,-20, h 110 l 20,20 l -20,20 h -110 Z" />';
+        $l5: '<path d="M 45,215 l 30,30 v 140 l -30,30 l -30,-30 v -140 Z" />';
+        $l6: '<path d="M 215,215 l 30,30 v 140 l -30,30 l -30,-30 v -140 Z" />';
+        $l7: '<path d="M 55,425 l 20,-20, h 110 l 20,20 l -20,20 h -110 Z" />';
+
+        &.n0 {
+            $svg: ($gb,$l4,$g, $gw,$l1,$l2,$l3,$l5,$l6,$l7,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n1 {
+            $svg: ($gb,$l1,$l2,$l4,$l5,$l7,$g, $gw,$l3,$l6,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n2 {
+            $svg: ($gb,$l2,$l6,$g, $gw,$l1,$l3,$l4,$l5,$l7,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n3 {
+            $svg: ($gb,$l2,$l5,$g, $gw,$l1,$l3,$l4,$l6,$l7,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n4 {
+            $svg: ($gb,$l1,$l5,$l7,$g, $gw,$l2,$l3,$l4,$l6,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n5 {
+            $svg: ($gb,$l3,$l5,$g, $gw,$l1,$l2,$l4,$l6,$l7,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n6 {
+            $svg: ($gb,$l3,$g, $gw,$l1,$l2,$l4,$l5,$l6,$l7,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n7 {
+            $svg: ($gb,$l2,$l4,$l5,$g, $gw,$l1,$l3,$l6,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n8 {
+            $svg: ($gw,$l1,$l2,$l3,$l4,$l5,$l6,$l7,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+        &.n9 {
+            $svg: ($gb,$l5,$l7,$g, $gw,$l1,$l2,$l3,$l4,$l6,$g);
+            @include svg($svg, 0, 0, 260, 460);
+        }
+    }
+}
+
+// stat bars
+.stats ul {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    li {
+        display: block;
+        height: 25%;
+        margin: 0 auto;
+        width: 0%;
+        transition: width .3s linear;
+        &:nth-child(1) {
+            background-color: #8bd07d; // col7
+        }
+        &:nth-child(2) {
+            background-color: #e1bc60; // col1
+        }
+        &:nth-child(3) {
+            background-color: #d17f53; // col6
+        }
+        &:nth-child(4) {
+            background-color: #b82635; // col3
+        }
+
+    }
+}
+
+// toggle pause screen
+.ratio {
+    .board .pause { 
+        opacity: 0; 
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0%;
+        top: 0%;
+        box-sizing: border-box;
+        padding-top: 45%;
+    }
+    &.pause {
+        .board .lines{ opacity: 0; transition: opacity .5s linear; }
+        .board .current { opacity: 0; }
+        .board .pause { opacity: 1; }
+    }
+}
+
+// sprite map characters
+p.charset {
+    text-align: center;
+    margin-bottom: 1%;
+    span {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 1px;
+
+        background-image: url('assets/images/chars1350x25.png');
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: auto 100%;
+        // the power of the pixels <3
+        image-rendering: pixelated;
+
+        // default width height
+        width: 6.5%;
+        height: 0;
+        padding-bottom: 6.5%;
+
+        &.a   { @include setCharPos(0); }
+        &.b   { @include setCharPos(25); }
+        &.c   { @include setCharPos(50); }
+        &.d   { @include setCharPos(75); }
+        &.e   { @include setCharPos(100); }
+        &.f   { @include setCharPos(125); }
+        &.g   { @include setCharPos(150); }
+        &.h   { @include setCharPos(175); }
+        &.i   { @include setCharPos(200, 12); }
+        &.j   { @include setCharPos(225); }
+        &.k   { @include setCharPos(250); }
+        &.l   { @include setCharPos(275); }
+        &.m   { @include setCharPos(300); }
+        &.n   { @include setCharPos(325); }
+        &.o   { @include setCharPos(350); }
+        &.p   { @include setCharPos(375); }
+        &.q   { @include setCharPos(400); }
+        &.r   { @include setCharPos(425); }
+        &.s   { @include setCharPos(450); }
+        &.t   { @include setCharPos(475); }
+        &.u   { @include setCharPos(500); }
+        &.v   { @include setCharPos(525); }
+        &.w   { @include setCharPos(550); }
+        &.x   { @include setCharPos(575); }
+        &.y   { @include setCharPos(600); }
+        &.z   { @include setCharPos(625); }
+        &.dot { @include setCharPos(650, 8); }
+        &.exc { @include setCharPos(675, 8); }
+        &.col { @include setCharPos(700, 8); }
+        &.hyp { @include setCharPos(725); }
+        &.n1  { @include setCharPos(750, 8); }
+        &.n2  { @include setCharPos(775); }
+        &.n3  { @include setCharPos(800); }
+        &.n4  { @include setCharPos(825); }
+        &.n5  { @include setCharPos(850); }
+        &.n6  { @include setCharPos(875); }
+        &.n7  { @include setCharPos(900); }
+        &.n8  { @include setCharPos(925); }
+        &.n9  { @include setCharPos(950); }
+        &.n0  { @include setCharPos(975); }
+        &.hrt { @include setCharPos(1000); }
+        &.smi { @include setCharPos(1025); }
+        &.kw  { @include setCharPos(1050); }
+        &.ka  { @include setCharPos(1075); }
+        &.ks  { @include setCharPos(1100); }
+        &.kd  { @include setCharPos(1125); }
+        &.kp  { @include setCharPos(1150); }
+        &.ki  { @include setCharPos(1175); }
+        &.ko  { @include setCharPos(1200); }
+        &.kal { @include setCharPos(1225); }
+        &.kar { @include setCharPos(1250); }
+        &.kau { @include setCharPos(1275); }
+        &.kad { @include setCharPos(1300); }
+        &.ken { @include setCharPos(1325); }
+        &.spc { background-image: none; }
+    }
+}        
+
+// intro screens
+.fullscreen {
+    ul.intro {
+        display: none;
+    }
+
+    &.showintro {
+        .control {
+            pointer-events: none;
+        }
+        .intro {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000dd;
+            li {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                &:nth-child(1) {
+                    opacity: 0;
+                    animation: intro 24s linear infinite;
+                }
+                &:nth-child(2) {
+                    opacity: 0;
+                    animation: intro 24s 8s linear infinite;
+                }
+                &:nth-child(3) {
+                    opacity: 0;
+                    animation: intro 24s 16s linear infinite;
+                }
+                p.anim {
+                    span:nth-child(3) {
+                        animation: sine 2s -0.2s ease-in-out infinite;
+                    }
+                    span:nth-child(4) {
+                        animation: sine 2s -0.4s ease-in-out infinite;
+                    }
+                    span:nth-child(5) {
+                        animation: sine 2s -0.6s ease-in-out infinite;
+                    }
+                    span:nth-child(6) {
+                        animation: sine 2s -0.8s ease-in-out infinite;
+                    }
+                    span:nth-child(7) {
+                        animation: sine 2s -1.0s ease-in-out infinite;
+                    }
+                    span:nth-child(8) {
+                        animation: sine 2s -1.2s ease-in-out infinite;
+                    }
+                }
+            }
+            // play button
+            .play {
+                position: absolute;
+                left: 0;
+                top: 88%;
+                width: 100%;
+                height: auto;
+                padding: 2% 0;
+                $svg: (
+                    '<g fill="#007700" stroke="#005500" stroke-width="2">'
+                    '<ellipse cx="125" cy="25" rx="123" ry="23" />'
+                    '</g>'
+                );
+                @include svg($svg, 0, 0, 250, 50, "auto 100%", "center center");
+            }
+        }
+        span.hrt {
+            animation: heart 5s ease-in infinite;
+        }
+
+    } 
+}
+// don't forget the pause heart
+.ratio.pause .pause .hrt {
+    animation: heart 5s ease-in infinite;
+}
+
+@keyframes intro {
+    from, to { opacity: 0; }
+    2%, 31% { opacity: 1; }
+    33% { opacity: 0; }
+}
+@keyframes heart {
+    from, 59%, 64%, 66%, to { transform: scale(1); }
+    61% { transform: scale(1.3); }
+    65% { transform: scale(1.1); }
+}
+@keyframes sine {
+    from, to { transform: translate3d(35%, -25%, 0); }
+    50% { transform: translate3d(-35%, 15%, 0); }
+}
+
+// game over text
+.fullscreen .next p.charset {
+    display: none;
+}
+.fullscreen.gameover .next {
+    .tile {
+        opacity: 0.3;
+        transition: opacity 0.5s linear;
+    }
+    p.charset {
+        display: block;
+
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: auto;
+        transform: translate3d(0,-50%,0);
+    }
+}

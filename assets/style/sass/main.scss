@@ -1,0 +1,49 @@
+@import 'mixins';
+@import 'reset';
+@import 'framework';
+
+/*
+    debug styles
+*/
+
+$debugMode: 0;
+
+@if $debugMode > 0 {
+
+    .fullscreen {
+    }
+    .ratio {
+    }
+    .next {
+        color: white;
+        .tile {
+            //background-color: red;
+        }
+    }
+    .stats {
+        color: white;
+    }
+
+    .current div {
+        /*
+        box-sizing: border-box;
+        border: 1px dashed black;
+        background-color: #ff000050;
+        */
+    }
+
+    .board .lines li {
+    }
+
+
+    // highlight origo of current piece
+    .current div.x0.y0:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff60;
+    }
+}
