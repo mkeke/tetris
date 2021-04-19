@@ -34,6 +34,8 @@ const piece = {
             state.gameOn = false;
             dom.parent.addClass("showintro");
             dom.parent.addClass("gameover");
+            state.trackPlayEnded();
+            state.trackPlayDuration();
         }
 
         dom.current.innerHTML = this.createPieceHTML(this.id);

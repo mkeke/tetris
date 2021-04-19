@@ -7,7 +7,6 @@ const state = {
     speedDrop: null, // upper threshold for speed drop area (mobile)
     pauseArea: null, // lower threshold for pause area (mobile)
 
-    // 
     isSpeedDrop: null, // speed drop state flag
     isPaused: null, // pause flag
     gameOn: null, // flag if game is running or not
@@ -37,6 +36,7 @@ const state = {
     linesUp: null,
 
     time: null, // for game loop
+    startTime: null, // for gameplay duration
 
     /*
         getNextPiece()
@@ -371,6 +371,34 @@ const state = {
     },
 
     /*
+        trackPlayStarted()
+        track the number of started games
+    */
+    trackPlayStarted: function() {
+        gtag("event", "play");
+        log("track play started");
+    },
+
+    /*
+        trackPlayEnded()
+        track score when game is over
+    */
+    trackPlayEnded: function() {
+        gtag("event", "end", {"event_label": "score", "value": this.score });
+        log("track play ended. score: " + this.score);
+    },
+
+    /*
+        trackPlayDuration()
+        track duration when game is over
+    */
+    trackPlayDuration: function() {
+        let dur = Math.round((Date.now() - this.startTime)/1000);
+        gtag("event", "duration", {"event_label": "duration", "value": dur});
+        log("track play duration: " + dur + " seconds" );
+    },
+
+    /*
         newGame()
         prepares a new game
         (re)sets all the things
@@ -398,6 +426,9 @@ const state = {
 
         dom.parent.removeClass("showintro");
         dom.parent.removeClass("gameover");
+
+        this.startTime = Date.now();
+        this.trackPlayStarted();
 
         this.gameOn = true;
         if(this.isPaused) {

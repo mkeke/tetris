@@ -40,7 +40,7 @@ WASD or arrow keys
 A classic which was even made by Norwegian developers! Everything is great about Twintris!
 
 - Earthquake when clearing 4 lines (QUAD!)
-- Pieces fall smoothly (doesn't snap to grid)
+- Pieces fall smoothly (don't snap to grid)
 - Pieces fall faster for each level, up to a certain point
 - Visualised statistics on the frequency of each piece
 - Score
@@ -119,8 +119,8 @@ I have my own build system created with node/gulp, which lets me organise the co
 I'm also using my own mini framework for DOM manipulation in JS. Inspired by jQuery, but consisting of a selected few functions that I need.
 
 Pieces are constructed with SVG.  
-Numbers in stats section are SVGs
-Charset (PNG) is made with The GIMP :-D  
+Numbers in stats section are SVGs  
+Charset (PNG) is made with The GIMP :-D
 
 No 3rd party frameworks are used, because I want to get a grasp of all the details and handle all the aspects involved in developing a game.
 
