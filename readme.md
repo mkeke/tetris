@@ -74,7 +74,7 @@ Maximum Tetris experience due to a hand-held device with physical buttons. I bou
 - The animation changes color and speeds up briefly when 4 lines are cleared
 - The game can be paused and resumed, even after a power off
 
-Cute detail: The score is represented with max 6 digits. One of my goals back in the day was to find out what would happen when I got more than 999999 points. Would the game crash? Would it start from zero? After years of playing (and thanks to the pause function) I got the answer. The score stops at 999999 even if the game continues.
+Cute detail: The score is represented with max 7 digits. One of my goals back in the day was to find out what would happen when I got more than 9999999 points. Would the game crash? Would it start from zero? After years of playing (and thanks to the pause function) I got the answer. The score stops at 9999999 even if the game continues.
 
 <img src="img/memory-lane-tetris-dx.jpg" width="30%" height="auto" />
 
@@ -91,7 +91,7 @@ Cute detail: The score is represented with max 6 digits. One of my goals back in
 - Stats: score, lines, level
 - Stats on how many lines are cleared at a time (1, 2, 3 or 4)
 - Identical score calculations as GBC
-- Implemented the 6 digit score limit from GBC <3
+- Implemented the 7 digit score limit from GBC <3
 - More or less the same piece randomizer algorithm as GBC, with a slight preference for a certain piece.
 - Speed drop
 - Pause hides the board, preventing cheating

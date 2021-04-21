@@ -144,11 +144,11 @@ const state = {
         incScore(num)
         increase score by (num)
 
-        The 6 digit score limitation from Tetris DX / Game Boy Color
+        The 7 digit score limitation from Tetris DX / Game Boy Color
         needs to be implemented of course!
     */
     incScore: function(num) {
-        this.score = Math.min(this.score+num, 999999);
+        this.score = Math.min(this.score+num, 9999999);
         this.scoreUp = true;
     },
 
