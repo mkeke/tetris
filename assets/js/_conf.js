@@ -22,8 +22,7 @@ const conf = {
 
     // steps per level
     levelSteps: [
-        12, // level 0, slowest
-        11,
+        11, // level 0, slowest
         10,
         9,
         8,
@@ -32,6 +31,7 @@ const conf = {
         5,
         4,
         3,
-        2, // level 10, fastest
+        2,
+        1, // level 10, fastest
     ],
 };

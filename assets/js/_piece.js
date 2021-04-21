@@ -103,9 +103,9 @@ const piece = {
     /*
         rotate(dir)
         rotate piece in the desired direction.
-        If rotation is impossible, then the piece is nudged 1px to either
+        If rotation is impossible, then the piece is nudged 1 tile to either
         side and rotation is attempted again.
-        If this is still impossible, then the piece is nudged 2px to
+        If this is still impossible, then the piece is nudged 2 tiles to
         either side.
 
         Nudge nudge, say no more, say no more..
