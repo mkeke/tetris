@@ -57,7 +57,7 @@ A classic which was even made by Norwegian developers! Everything is great about
 
 ## Tetris DX (Game Boy Color, 1998)
 
-Maximum Tetris experience due to a hand-held device with physical buttons. I bought the GBC solely for Tetris DX. This has a more vintage look & feel, but it's still tip-notch.
+Maximum Tetris experience due to a hand-held device with physical buttons. I bought the GBC solely for Tetris DX. This has a more vintage look & feel, but it's still top-notch.
 
 - Pieces fall faster for each level (up to level 10)
 - The board has a different background color depending on level
